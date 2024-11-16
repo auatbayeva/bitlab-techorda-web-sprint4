@@ -117,3 +117,6 @@ body{
 #post-block div {
     margin-bottom: 10px;
 }
+.friend-list {
+    text-align: center;
+}
