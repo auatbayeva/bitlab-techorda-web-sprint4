@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Login</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Светло-серый фон */
+        }
+        .navbar {
+            background-color: #2b8290; /* Темно-синий */
+        }
+        .btn-primary {
+            background-color: #00008a; /* Темно-синий цвет кнопки */
+            border: none;
+        }
+        .card {
+            border: none; /* Убираем стандартные рамки карточки */
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">TWITTER</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Tweets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Register</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-bold">EMAIL:</label>
+                        <input type="email" class="form-control" id="email" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label fw-bold">PASSWORD:</label>
+                        <input type="password" class="form-control" id="password" placeholder="">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-30">SIGN IN</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let form = document.getElementById("loginForm");
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Останавливаем отправку формы на сервер
+
+        // Получаем данные из элементов формы
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+
+        const usersData = localStorage.getItem("users");
+        const usersArray = JSON.parse(usersData);
+        const user = usersArray.find(user => user.email === email);
+        let queryParams = '';
+        if(user.password === password){
+            console.log("User found");
+            queryParams = `?email=${encodeURIComponent(email)}`;
+            window.location.href = "profile.html" + queryParams;
+        }else{
+            alert("User not found!");
+        }
+
+    });
+
+
+</script>
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

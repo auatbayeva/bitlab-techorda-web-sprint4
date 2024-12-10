@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Светлый фон */
+        }
+        .navbar {
+            background-color: #2b8290; /* Темно-синий */
+        }
+        .content {
+            text-align: left;
+        }
+        .profile-title {
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">TWITTER</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Tweets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" id="userfullname">Zhuanyshev Ilyas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="login.html">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4 shadow-sm">
+                <h2 class="text-center profile-title" id="welcomeFullName" >Welcome Ilyas Zhuanyshev</h2>
+                <div class="content">
+                    EMAIL:<p id="email" style="font-weight: bold;"></p>
+                    FULL NAME:<p id="fullname" style="font-weight: bold;">Ilyas Zhuanyshev</p>
+                    COUNTRY:<p id="country" style="font-weight: bold;">Kazakhstan</p>
+                    BIRTHDATE:<p id="birthdate" style="font-weight: bold;">989-05-26</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let usersArray = [];
+    const params = new URLSearchParams(window.location.search);
+    // Извлекаем значения
+    const email = params.get('email');
+    getElements();
+
+    const user = usersArray.find(user => user.email === email);
+
+    if (user) {
+        console.log("User found:", user);
+        const userFullNameElement = document.getElementById("userfullname");
+        userFullNameElement.textContent = user.fullName;
+        const welcomeFullNameElement = document.getElementById("welcomeFullName");
+        welcomeFullNameElement.textContent = "Welcome " + user.fullName;
+        const emailElement = document.getElementById("email");
+        emailElement.textContent = user.email;
+        const fullNameElement = document.getElementById("fullname");
+        fullNameElement.textContent = user.fullName;
+        const countryElement = document.getElementById("country");
+        countryElement.textContent = user.country;
+        const birthdateElement = document.getElementById("birthdate");
+        birthdateElement.textContent = user.birthdate;
+
+    } else {
+        console.log("User not found");
+    }
+
+
+    function getElements(){
+        const usersData = localStorage.getItem("users");
+        usersArray = JSON.parse(usersData);
+    }
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
