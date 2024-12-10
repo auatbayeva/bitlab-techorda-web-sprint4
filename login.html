@@ -74,13 +74,18 @@
         const usersArray = JSON.parse(usersData);
         const user = usersArray.find(user => user.email === email);
         let queryParams = '';
-        if(user.password === password){
-            console.log("User found");
-            queryParams = `?email=${encodeURIComponent(email)}`;
-            window.location.href = "profile.html" + queryParams;
+        if(user){
+            if(user.password === password){
+                console.log("User found");
+                queryParams = `?email=${encodeURIComponent(email)}`;
+                window.location.href = "profile.html" + queryParams;
+            }else{
+                alert("User not found!");
+            }
         }else{
             alert("User not found!");
         }
+
 
     });
 
